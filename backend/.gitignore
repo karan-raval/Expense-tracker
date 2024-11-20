@@ -23,4 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-backend/src/serviceAccountKey.json
+
+# Firebase credentials
+**/serviceAccountKey.json
