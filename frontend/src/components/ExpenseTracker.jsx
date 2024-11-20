@@ -13,8 +13,14 @@ const ExpenseTracker = () => {
     loadExpenses();
   }, []);
 
+  const calculateTotal = (expenses) => {
+    if (!Array.isArray(expenses)) return 0;
+    return expenses.reduce((total, expense) => total + parseFloat(expense.amount || 0), 0);
+  };
+
   useEffect(() => {
-    const total = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
+    console.log('Expenses data:', expenses);
+    const total = Array.isArray(expenses) ? calculateTotal(expenses) : 0;
     setTotalSpent(total);
   }, [expenses]);
 

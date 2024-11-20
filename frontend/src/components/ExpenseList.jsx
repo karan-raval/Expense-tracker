@@ -7,13 +7,15 @@ const ExpenseList = ({ expenses, onDelete, onEdit }) => {
     return isNaN(number) ? '0.00' : number.toFixed(2);
   };
 
+  const expenseArray = Array.isArray(expenses) ? expenses : [];
+
   return (
     <div className="w-full bg-white rounded-xl shadow-lg p-6 border border-gray-100">
       <h2 className="text-2xl font-bold text-sky-600 mb-6">💰 Recent Expenses</h2>
       
       <div className="space-y-4">
         <AnimatePresence>
-          {expenses.length === 0 ? (
+          {expenseArray.length === 0 ? (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -23,7 +25,7 @@ const ExpenseList = ({ expenses, onDelete, onEdit }) => {
               No expenses recorded yet. Start adding some!
             </motion.div>
           ) : (
-            expenses.map((expense) => (
+            expenseArray.map((expense) => (
               <motion.div
                 key={expense.id}
                 initial={{ opacity: 0, y: 20 }}

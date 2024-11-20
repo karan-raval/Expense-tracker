@@ -23,12 +23,18 @@ const ExpenseTracker = () => {
   }, [expenses]);
 
   const loadExpenses = async () => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       const data = await fetchExpenses();
-      setExpenses(data);
+      if (Array.isArray(data)) {
+        setExpenses(data);
+      } else {
+        console.error('Received non-array data:', data);
+        setExpenses([]);
+      }
     } catch (error) {
-      console.error("Error loading expenses:", error);
+      console.error('Error loading expenses:', error);
+      setExpenses([]);
     } finally {
       setIsLoading(false);
     }

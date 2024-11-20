@@ -1,5 +1,4 @@
-require('dotenv').config();
-
+// require('dotenv').config();
 const API_URL = 'http://localhost:8080/api/expenses';
 import { initializeApp } from 'firebase/app';
 import {
@@ -13,36 +12,33 @@ import {
 } from 'firebase/firestore';
 
 // Validate that all required environment variables are present
-const requiredEnvVars = [
-  'REACT_APP_FIREBASE_API_KEY',
-  'REACT_APP_FIREBASE_AUTH_DOMAIN',
-  'REACT_APP_FIREBASE_PROJECT_ID',
-  'REACT_APP_FIREBASE_STORAGE_BUCKET',
-  'REACT_APP_FIREBASE_MESSAGING_SENDER_ID',
-  'REACT_APP_FIREBASE_APP_ID'
-];
 
-requiredEnvVars.forEach(varName => {
-  if (!process.env[varName]) {
-    throw new Error(`Missing required environment variable: ${varName}`);
-  }
-});
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID
+  apiKey: "AIzaSyDTX0Z8TkBcIWaiW0Gago1EgdkrPLvz1P4",
+  authDomain: "expenses-tracker-24f9f.firebaseapp.com",
+  projectId: "expenses-tracker-24f9f",
+  storageBucket: "expenses-tracker-24f9f.firebasestorage.app",
+  messagingSenderId: "20667373456",
+  appId: "1:20667373456:web:34207bc025e89352c9c515"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export const fetchExpenses = async () => {
-  const response = await fetch(API_URL);
-  return response.json();
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    let a = await response.json();
+    console.log(a)
+    return a;
+  } catch (error) {
+    console.error("Error fetching expenses: ", error);
+    throw error;
+  }
 };
 
 export const addExpense = async (expenseData) => {

@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const expenseRoutes = require('./routes/expenseRoutes');
-const budgetRoutes = require('./routes/budgetRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -9,8 +8,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 app.use('/api/expenses', expenseRoutes);
-app.use('/api/budgets', budgetRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
